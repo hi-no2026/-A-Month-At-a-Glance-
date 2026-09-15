@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f2efea">
+  <title>Calendar — Plan a month in five minutes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <section class="landing" id="landing" aria-label="Open calendar">
+      <button class="enter" id="enterCalendar" type="button" aria-label="Open calendar planner">
+        <span class="eyebrow">Your month, made simple</span>
+        <span class="title-wrap">
+          <span class="asterisk" aria-hidden="true">✦</span>
+          <span class="landing-title">CALENDAR</span>
+        </span>
+        <span class="enter-hint">Click anywhere to begin <span>↗</span></span>
+      </button>
+    </section>
+
+    <section class="planner" id="planner" aria-hidden="true">
+      <header class="topbar">
+        <button class="brand" id="backHome" type="button">CALENDAR<span>✦</span></button>
+        <p class="promise">A whole month, planned in 5 minutes.</p>
+        <div class="top-actions">
+          <button class="share-button" id="shareButton" type="button">Share ↗</button>
+          <p class="clock" id="clock">00:00</p>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <section class="quick-add" aria-labelledby="add-title">
+          <div class="step-label"><span>01</span> QUICK ADD</div>
+          <h1 id="add-title">What’s happening?</h1>
+          <form id="eventForm">
+            <label class="input-shell">
+              <span class="sr-only">Describe your event</span>
+              <input id="eventInput" autocomplete="off" placeholder="Dinner Friday at 7pm" maxlength="100">
+              <button type="submit" aria-label="Add event">↵</button>
+            </label>
+          </form>
+          <p class="helper">Type it naturally, then press Enter.</p>
+          <div class="examples" aria-label="Example events">
+            <button type="button" data-example="Robotics Wednesday at 5pm">Robotics Wednesday at 5pm</button>
+            <button type="button" data-example="Call Mom on the 18th">Call Mom on the 18th</button>
+          </div>
+          <div class="status" id="status" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="calendar-panel" aria-labelledby="monthHeading">
+          <div class="calendar-head">
+            <div>
+              <div class="step-label"><span>02</span> YOUR MONTH</div>
+              <h2 id="monthHeading"></h2>
+            </div>
+            <p class="auto-month"><span></span> Updates automatically each month</p>
+          </div>
+          <div class="weekdays" aria-hidden="true">
+            <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+      </div>
+      <footer><span>FAST BY DESIGN.</span><span>Saved on this device</span></footer>
+    </section>
+  </main>
+  <dialog class="share-dialog" id="shareDialog" aria-labelledby="shareTitle">
+    <div class="dialog-head"><div><div class="step-label"><span>03</span> SHARE YOUR MONTH</div><h2 id="shareTitle">Choose what to share</h2></div><button class="close-dialog" id="closeShare" type="button" aria-label="Close share dialog">×</button></div>
+    <p class="dialog-copy">Pick the tags you want people to see. Your private events stay on this device.</p>
+    <div class="tag-list" id="tagList"></div>
+    <div class="share-result" id="shareResult" hidden><input id="shareUrl" readonly aria-label="Share URL"><button id="copyShare" type="button">Copy URL</button></div>
+    <button class="generate-share" id="generateShare" type="button">Generate share link ↗</button>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>

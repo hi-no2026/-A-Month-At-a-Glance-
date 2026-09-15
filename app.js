@@ -93,7 +93,10 @@ $('#enterCalendar').addEventListener('click', openPlanner);
 $('#backHome').addEventListener('click', () => { landing.classList.remove('closed'); planner.classList.remove('active'); planner.setAttribute('aria-hidden','true'); });
 document.querySelectorAll('[data-example]').forEach(b => b.addEventListener('click', () => { input.value=b.dataset.example; input.focus(); }));
 const shareDialog = $('#shareDialog');
-function getTags() { return [...new Set(events.map(e => e.title).filter(Boolean))].sort((a,b) => a.localeCompare(b)); }
+function getTags() {
+  const monthPrefix = `${viewDate.getFullYear()}-${String(viewDate.getMonth()+1).padStart(2,'0')}-`;
+  return [...new Set(events.filter(e => e.date.startsWith(monthPrefix)).map(e => e.title).filter(Boolean))].sort((a,b) => a.localeCompare(b));
+}
 function renderTagChoices() {
   const tags = getTags();
   $('#tagList').innerHTML = tags.length ? tags.map((tag, i) => `<label class="tag-choice"><input type="checkbox" value="${escapeHTML(tag)}" checked> ${escapeHTML(tag)}</label>`).join('') : '<span class="helper">Add an event first to create shareable tags.</span>';
@@ -102,7 +105,7 @@ $('#shareButton').addEventListener('click', () => { renderTagChoices(); $('#shar
 $('#closeShare').addEventListener('click', () => shareDialog.close());
 $('#generateShare').addEventListener('click', () => {
   const selected = [...document.querySelectorAll('#tagList input:checked')].map(el => el.value);
-  const url = new URL(location.href); const visibleEvents = events.filter(e => !selected.length || selected.includes(e.title));
+  const url = new URL(location.href); const monthPrefix = `${viewDate.getFullYear()}-${String(viewDate.getMonth()+1).padStart(2,'0')}-`; const visibleEvents = events.filter(e => e.date.startsWith(monthPrefix) && (!selected.length || selected.includes(e.title)));
   url.search = `?tags=${selected.map(encodeURIComponent).join(',')}&events=${encodeURIComponent(JSON.stringify(visibleEvents))}`;
   $('#shareUrl').value = url.href; $('#shareResult').hidden=false;
 });
